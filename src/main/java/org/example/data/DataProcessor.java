@@ -52,7 +52,7 @@ public class DataProcessor {
     }
 
     /**
-     * 当使用多种哈希算法对原始数据进行去重以后,依然会有一部分的重复数据
+     * 当使用多种哈希算法对原始数据进行去重以后,依然会有一部分的重复数据,对其进行取交集
      * @throws Exception
      */
     public void getCross() throws Exception {
@@ -94,7 +94,7 @@ public class DataProcessor {
     }
 
     /**
-     * 作最后一次检查,当使用多种哈希算法对原始数据去重后
+     * 作最后一次检查
      * @throws Exception
      */
     public void recheck() throws Exception {
