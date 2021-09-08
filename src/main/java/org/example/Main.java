@@ -12,7 +12,7 @@ public class Main {
         dataProcessor.processByBitmap();
         long cp1 = System.currentTimeMillis();
         System.out.println("第一步运行时间: "+(cp1-start)+"ms");
-        dataProcessor.distinctFromFiles();
+        dataProcessor.getCross();
         long cp2 = System.currentTimeMillis();
         System.out.println("第二部运行时间： "+(cp2-cp1)+"ms");
     }
