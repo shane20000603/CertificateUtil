@@ -3,7 +3,6 @@ package org.example.data;
 import org.apache.poi.ss.formula.functions.T;
 
 import java.io.*;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class DataProcessor {
@@ -52,6 +51,10 @@ public class DataProcessor {
         }
     }
 
+    /**
+     * 当使用多种哈希算法对原始数据进行去重以后,依然会有一部分的重复数据
+     * @throws Exception
+     */
     public void getCross() throws Exception {
         HashSet<Object> comparedSet = new HashSet<>();
         File file = new File("src/out");
@@ -90,6 +93,10 @@ public class DataProcessor {
         bufferedWriter.close();
     }
 
+    /**
+     * 作最后一次检查,当使用多种哈希算法对原始数据去重后
+     * @throws Exception
+     */
     public void recheck() throws Exception {
         //ini
         File rawResult = new File("src/final/raw_result.txt");
