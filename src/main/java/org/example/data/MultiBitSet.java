@@ -9,10 +9,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MultiBitSet {
+public class MultiBitSet{
     //最大性能位两者相加等于33
     private static final int DEFAULT_CAPACITY = 1<<30;
-    private static final int DEFAULT_SET_NUMBER = 1<<4;
+    private static final int DEFAULT_SET_NUMBER = 1<<3;
     //初始化，维护一个n维bitset
     private final BitSet[] bitSets;
     //使用set来装重复的元素
@@ -56,11 +56,11 @@ public class MultiBitSet {
     /**
     对输入的key进行插入
      */
-    void process(Object key){
+    public void process(Object key){
         //先对key进行合适处理将他放到合适的组，减少hash冲突
         int mark = myHash(key.toString()) & DEFAULT_SET_NUMBER-1;
         //在对应的hash中再次放入相应的位置
-        int pos = pos(hash(key));
+        int pos = pos(key.hashCode());
         System.out.println("Group: "+mark + " Pos: "+pos);
         //若之前没有被置1，则置1，若被置1，则说明该key已经存在，加入重复set中
         if (bitSets[mark].get(pos)) set.add(key);
@@ -72,24 +72,25 @@ public class MultiBitSet {
     /**
     使用不同的算法对输入的key进行散列后插入
      */
-    void process(String key,int seed) throws IOException, NoSuchAlgorithmException {
+    public void process(Object key, int seed) throws NoSuchAlgorithmException {
+        String keyStr = (String)key;
         //先对key进行合适处理将他放到合适的组，减少hash冲突
-        int mark = (key.hashCode()) & DEFAULT_SET_NUMBER-1;
+        int mark = (keyStr.hashCode()) & (DEFAULT_SET_NUMBER-1);
         //在对应的hash中再次放入相应的位置
         int pos = 0;
         switch (seed){
             case 0:
-                pos = pos(encrypt(key,"SHA1").hashCode());break;
+                pos = pos(encrypt(keyStr,"SHA1").hashCode());break;
             case 1:
-                pos = pos(encrypt(key,"MD5").hashCode());break;
+                pos = pos(encrypt(keyStr,"MD5").hashCode());break;
             case 2:
-                pos = pos(encrypt(key,"SHA384").hashCode());break;
+                pos = pos(encrypt(keyStr,"SHA384").hashCode());break;
             case 3:
-                pos = pos(encrypt(key,"MD2").hashCode());break;
+                pos = pos(encrypt(keyStr,"MD2").hashCode());break;
         }
         //若之前没有被置1，则置1，若被置1，则说明该key已经存在，加入重复set中
         if (bitSets[mark].get(pos)) {
-            set.add(key);
+            set.add(keyStr);
         }
         else bitSets[mark].set(pos);
     }

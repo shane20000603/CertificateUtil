@@ -14,6 +14,9 @@ public class Main {
         System.out.println("第一步运行时间: "+(cp1-start)+"ms");
         dataProcessor.getCross();
         long cp2 = System.currentTimeMillis();
-        System.out.println("第二部运行时间： "+(cp2-cp1)+"ms");
+        System.out.println("第二步运行时间： "+(cp2-cp1)+"ms");
+        dataProcessor.recheck();
+        long cp3 = System.currentTimeMillis();
+        System.out.println("第三步运行时间： "+(cp3-cp2)+"ms");
     }
 }
