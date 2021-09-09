@@ -9,5 +9,4 @@ out
 gen
 src/test/
 src/pins/
-target/generated-sources/
-target/generated-test-sources/
+target/
