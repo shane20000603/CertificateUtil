@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MultiBitSet{
     //最大性能位两者相加等于33
-    private static final int DEFAULT_CAPACITY = 1<<29;
+    private static final int DEFAULT_CAPACITY = 1<<30;
     private static final int DEFAULT_SET_NUMBER = 1<<3;
     //初始化，维护一个n维bitset
     private final BitSet[] bitSets;

@@ -8,13 +8,15 @@ import java.util.*;
 public class DataProcessor {
     private final MultiBitSet multiBitSet = MultiBitSet.getInstance();
     private final Set<Object> set = new HashSet<>();
-    //output
-    private final File fileContainsPins = new File("F:\\test_data");
+    //output 输入目标文件夹
+    private final File fileContainsPins = new File("D:\\pins\\test_data");
     //算法种子
     private final int[] seeds = {0, 1};
 
     //
     public void processByBitmap() throws Exception {
+        File dir = new File("src/out");
+        if(!dir.exists()) dir.mkdir();
         for (int i = 0; i < seeds.length; i++) {
             //分部处理，创建分批文件
             File file = new File("src/out/result" + i + ".txt");
@@ -56,6 +58,8 @@ public class DataProcessor {
      * @throws Exception
      */
     public void getCross() throws Exception {
+        File dir = new File("src/final");
+        if(!dir.exists()) dir.mkdir();
         HashSet<Object> comparedSet = new HashSet<>();
         File file = new File("src/out");
         File result = new File("src/final/raw_result.txt");
@@ -94,7 +98,7 @@ public class DataProcessor {
     }
 
     /**
-     * 作最后一次检查
+     * 作最后一次检查，与整个数据集线性比较
      * @throws Exception
      */
     public void recheck() throws Exception {

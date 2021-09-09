@@ -8,7 +8,6 @@
 out
 gen
 src/test/
-src/final
 src/pins/
 target/generated-sources/
 target/generated-test-sources/
