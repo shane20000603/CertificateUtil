@@ -177,7 +177,7 @@ public final class DataProcessor {
                         if (s == null) break;
                         String realKey = s.substring(s.indexOf(',') + 1).trim();
                         if (rawSet_hash.contains(realKey.hashCode()) && rawSet_String.contains(realKey) && !tempSet.add(realKey))
-                            fileWriter.write(s);
+                            fileWriter.write(s+'\n');
                     }
 
                 }
