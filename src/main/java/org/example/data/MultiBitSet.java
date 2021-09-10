@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MultiBitSet{
-    //最大性能位两者相加等于33
+    //参数根据电脑性能与处理数据大小更改
     private static final int DEFAULT_CAPACITY = 1<<30;
     private static final int DEFAULT_SET_NUMBER = 1<<3;
     //初始化，维护一个n维bitset
@@ -84,13 +84,13 @@ public class MultiBitSet{
         //在对应的hash中再次放入相应的位置
         int pos = 0;
         switch (seed){
-            case 0:
+            case SHA1_SEED:
                 pos = pos(encrypt(keyStr,"SHA1").hashCode());break;
-            case 1:
+            case MD5_SEED:
                 pos = pos(encrypt(keyStr,"MD5").hashCode());break;
-            case 2:
+            case SHA384_SEED:
                 pos = pos(encrypt(keyStr,"SHA384").hashCode());break;
-            case 3:
+            case MD2_SEED:
                 pos = pos(encrypt(keyStr,"MD2").hashCode());break;
         }
         //若之前没有被置1，则置1，若被置1，则说明该key已经存在，加入重复set中
