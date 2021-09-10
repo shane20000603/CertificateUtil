@@ -9,4 +9,5 @@ out
 gen
 src/test/
 src/pins/
+src/final/
 target/

@@ -15,6 +15,11 @@ public class MultiBitSet{
     private static final int DEFAULT_SET_NUMBER = 1<<3;
     //初始化，维护一个n维bitset
     private final BitSet[] bitSets;
+    //算法种子
+    public static final int SHA1_SEED = 0;
+    public static final int MD5_SEED = 1;
+    public static final int SHA384_SEED = 2;
+    public static final int MD2_SEED = 3;
     //使用set来装重复的元素
     private final Set<Object> set = new HashSet<>();
     private static volatile MultiBitSet instance;
@@ -89,10 +94,12 @@ public class MultiBitSet{
                 pos = pos(encrypt(keyStr,"MD2").hashCode());break;
         }
         //若之前没有被置1，则置1，若被置1，则说明该key已经存在，加入重复set中
-        if (bitSets[mark].get(pos)) {
-            set.add(keyStr);
+        synchronized (this){
+            if (bitSets[mark].get(pos)) {
+                set.add(keyStr);
+            }
+            else bitSets[mark].set(pos);
         }
-        else bitSets[mark].set(pos);
     }
 
 
@@ -129,14 +136,14 @@ public class MultiBitSet{
         return sum;
     }
 
-    public String encrypt(String key,String method) throws NoSuchAlgorithmException {
+    private String encrypt(String key,String method) throws NoSuchAlgorithmException {
         byte[] bytes = key.getBytes(StandardCharsets.UTF_8);
         MessageDigest md = MessageDigest.getInstance(method);
         StringBuilder sb = new StringBuilder();
         md.update(bytes);
         byte[] digest = md.digest();
-        for (int i = 0; i < digest.length; i++) {
-            sb.append(Integer.toHexString(0xff & digest[i]));
+        for (byte b : digest) {
+            sb.append(Integer.toHexString(0xff & b));
         }
         return sb.toString();
     }
